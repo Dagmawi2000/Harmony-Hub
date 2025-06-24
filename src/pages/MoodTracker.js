@@ -7,14 +7,11 @@ import {
   Button,
   Paper,
   IconButton,
-  AppBar,
-  Toolbar,
   Grid,
   ToggleButton,
   ToggleButtonGroup,
 } from '@mui/material';
 import {
-  ArrowBack as BackIcon,
   SentimentVerySatisfied as HappyIcon,
   SentimentDissatisfied as SadIcon,
   SentimentVeryDissatisfied as StressedIcon,
@@ -168,26 +165,6 @@ function MoodTracker() {
 
   return (
     <Box sx={{ minHeight: '100vh', bgcolor: 'background.default' }}>
-      {/* Navigation Bar */}
-      <AppBar position="static" color="transparent" elevation={0}>
-        <Toolbar>
-          <IconButton
-            edge="start"
-            color="inherit"
-            onClick={() => navigate('/dashboard')}
-          >
-            <BackIcon />
-          </IconButton>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, fontFamily: 'Playfair Display' }}
-          >
-            Mood Tracker
-          </Typography>
-        </Toolbar>
-      </AppBar>
-
       <Container maxWidth="md" sx={{ py: 4 }}>
         <Grid container spacing={4}>
           {/* Mood Input */}
