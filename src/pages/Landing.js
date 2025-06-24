@@ -82,33 +82,6 @@ function Landing() {
 
   return (
     <Box sx={{ minHeight: '100vh', bgcolor: 'transparent', display: 'flex', flexDirection: 'column' }}>
-      {/* Navigation Bar */}
-      <AppBar position="static" color="transparent" elevation={0}>
-        <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontFamily: 'Playfair Display' }}>
-            Harmony Hub
-          </Typography>
-          <Link component={RouterLink} to="/about" color="inherit" sx={{ mx: 2 }}>
-            About
-          </Link>
-          <Link component={RouterLink} to="/features" color="inherit" sx={{ mx: 2 }}>
-            Features
-          </Link>
-          <Link component={RouterLink} to="/contact" color="inherit" sx={{ mx: 2 }}>
-            Contact
-          </Link>
-          <Button
-            component={RouterLink}
-            to="/login"
-            variant="contained"
-            color="primary"
-            sx={{ ml: 2 }}
-          >
-            Login
-          </Button>
-        </Toolbar>
-      </AppBar>
-
       {/* Animated Hero Section */}
       <Box
         sx={{
