@@ -140,26 +140,6 @@ function MicroCommunity() {
 
   return (
     <Box sx={{ minHeight: '100vh', bgcolor: 'background.default' }}>
-      {/* Navigation Bar */}
-      <AppBar position="static" color="transparent" elevation={0}>
-        <Toolbar>
-          <IconButton
-            edge="start"
-            color="inherit"
-            onClick={() => navigate('/dashboard')}
-          >
-            <BackIcon />
-          </IconButton>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, fontFamily: 'Playfair Display' }}
-          >
-            Micro-Community
-          </Typography>
-        </Toolbar>
-      </AppBar>
-
       <Container maxWidth="md" sx={{ py: 4 }}>
         <Grid container spacing={4}>
           {/* Community List and Info */}
