@@ -13,6 +13,8 @@ import {
 } from '@mui/material';
 import { motion } from 'framer-motion';
 import { useAuth } from '../contexts/AuthContext';
+import { doc, setDoc } from 'firebase/firestore';
+import { db } from '../config/firebase';
 import CloseIcon from '@mui/icons-material/Close';
 
 const MotionBox = motion(Box);
@@ -33,13 +35,37 @@ function SignUp() {
       return setError('Passwords do not match');
     }
 
+    if (password.length < 6) {
+      return setError('Password must be at least 6 characters long');
+    }
+
     try {
       setError('');
       setLoading(true);
-      await signup(email, password);
+      const { user } = await signup(email, password);
+      
+      // Create user document in Firestore
+      await setDoc(doc(db, 'users', user.uid), {
+        email: user.email,
+        displayName: user.displayName || '',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      });
+      
       navigate('/dashboard');
     } catch (error) {
-      setError('Failed to create an account. Please try again.');
+      console.error('Signup error:', error);
+      if (error.code === 'auth/email-already-in-use') {
+        setError('An account with this email already exists. Please sign in instead.');
+      } else if (error.code === 'auth/invalid-email') {
+        setError('Please enter a valid email address.');
+      } else if (error.code === 'auth/weak-password') {
+        setError('Password is too weak. Please choose a stronger password.');
+      } else if (error.code === 'auth/operation-not-allowed') {
+        setError('Email/password accounts are not enabled. Please contact support.');
+      } else {
+        setError(`Failed to create account: ${error.message}`);
+      }
     } finally {
       setLoading(false);
     }
@@ -153,7 +179,7 @@ function SignUp() {
                 mb: 2,
               }}
             >
-              Sign Up
+              {loading ? 'Creating Account...' : 'Sign Up'}
             </Button>
             <Typography variant="body2" color="text.secondary">
               Already have an account?{' '}
@@ -164,6 +190,7 @@ function SignUp() {
           </Box>
           {/* Back to Home link */}
           <Button
+            variant="text"
             onClick={() => navigate('/')}
             sx={{ mt: 3, color: 'primary.main', textTransform: 'none' }}
             fullWidth
