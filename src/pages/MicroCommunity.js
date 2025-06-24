@@ -41,6 +41,8 @@ import {
   serverTimestamp as rtdbTimestamp,
 } from 'firebase/database';
 import { useAuth } from '../contexts/AuthContext';
+import CommunityList from '../components/CommunityList';
+import ReflectionPost from '../components/ReflectionPost';
 
 const MotionBox = motion(Box);
 
@@ -160,143 +162,24 @@ function MicroCommunity() {
 
       <Container maxWidth="md" sx={{ py: 4 }}>
         <Grid container spacing={4}>
-          {/* Group Info and Daily Prompt */}
+          {/* Community List and Info */}
           <Grid item xs={12} md={4}>
             <MotionBox
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <Paper
-                elevation={3}
-                sx={{
-                  p: 4,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  height: '100%',
-                }}
-              >
-                <Typography
-                  variant="h5"
-                  component="h2"
-                  sx={{ mb: 3, fontFamily: 'Playfair Display' }}
-                >
-                  {groupInfo?.name || 'Your Group'}
-                </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                  {groupInfo?.memberCount || 5} members
-                </Typography>
-                <Divider sx={{ my: 2 }} />
-                <Typography
-                  variant="h6"
-                  sx={{ mb: 2, fontFamily: 'Playfair Display' }}
-                >
-                  Daily Reflection
-                </Typography>
-                <Typography variant="body1" sx={{ fontStyle: 'italic' }}>
-                  {dailyPrompt}
-                </Typography>
-              </Paper>
+              <CommunityList />
             </MotionBox>
           </Grid>
-
-          {/* Chat Section */}
+          {/* Reflections and Chat */}
           <Grid item xs={12} md={8}>
             <MotionBox
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <Paper
-                elevation={3}
-                sx={{
-                  p: 4,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  height: '100%',
-                }}
-              >
-                <Typography
-                  variant="h5"
-                  component="h2"
-                  sx={{ mb: 3, fontFamily: 'Playfair Display' }}
-                >
-                  Group Chat
-                </Typography>
-                <Box
-                  sx={{
-                    flex: 1,
-                    overflowY: 'auto',
-                    mb: 2,
-                    maxHeight: '400px',
-                  }}
-                >
-                  <List>
-                    {messages.map((message) => (
-                      <ListItem
-                        key={message.id}
-                        alignItems="flex-start"
-                        sx={{
-                          flexDirection:
-                            message.userId === currentUser.uid
-                              ? 'row-reverse'
-                              : 'row',
-                        }}
-                      >
-                        <ListItemAvatar>
-                          <Avatar>
-                            <PersonIcon />
-                          </Avatar>
-                        </ListItemAvatar>
-                        <ListItemText
-                          primary={message.userName}
-                          secondary={
-                            <>
-                              <Typography
-                                component="span"
-                                variant="body2"
-                                color="text.primary"
-                              >
-                                {message.text}
-                              </Typography>
-                              <br />
-                              {new Date(message.timestamp).toLocaleTimeString()}
-                            </>
-                          }
-                          sx={{
-                            textAlign:
-                              message.userId === currentUser.uid
-                                ? 'right'
-                                : 'left',
-                          }}
-                        />
-                      </ListItem>
-                    ))}
-                    <div ref={messagesEndRef} />
-                  </List>
-                </Box>
-                <Box sx={{ display: 'flex', gap: 1 }}>
-                  <TextField
-                    fullWidth
-                    placeholder="Type a message..."
-                    value={newMessage}
-                    onChange={(e) => setNewMessage(e.target.value)}
-                    onKeyPress={(e) => {
-                      if (e.key === 'Enter' && !e.shiftKey) {
-                        e.preventDefault();
-                        handleSendMessage();
-                      }
-                    }}
-                  />
-                  <IconButton
-                    color="primary"
-                    onClick={handleSendMessage}
-                    disabled={isSending || !newMessage.trim()}
-                  >
-                    <SendIcon />
-                  </IconButton>
-                </Box>
-              </Paper>
+              <ReflectionPost />
             </MotionBox>
           </Grid>
         </Grid>
