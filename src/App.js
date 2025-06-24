@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
+import Footer from './components/Footer';
 
 // Pages
 import Landing from './pages/Landing';
@@ -133,6 +134,7 @@ function App() {
             />
           </Routes>
         </Router>
+        <Footer />
       </AuthProvider>
     </ThemeProvider>
   );
