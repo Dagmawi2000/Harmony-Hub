@@ -322,19 +322,6 @@ function Landing() {
           ))}
         </Grid>
       </Box>
-
-      {/* Footer */}
-      <Box sx={{ mt: 'auto', py: 3, bgcolor: 'transparent', textAlign: 'center' }}>
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.2, delay: 0.5 }}
-        >
-          <Typography variant="body2" sx={{ color: '#b0b0b0', fontFamily: 'Playfair Display' }}>
-            © {new Date().getFullYear()} Harmony Hub. All rights reserved.
-          </Typography>
-        </motion.div>
-      </Box>
     </Box>
   );
 }
