@@ -23,6 +23,7 @@ import { useNavigate } from 'react-router-dom';
 import { db } from '../config/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { useAuth } from '../contexts/AuthContext';
+import BreathingExercise from '../components/BreathingExercise';
 
 const MotionBox = motion(Box);
 
@@ -103,66 +104,7 @@ function DailyPractice() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <Paper
-                elevation={3}
-                sx={{
-                  p: 4,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                }}
-              >
-                <Typography
-                  variant="h5"
-                  component="h2"
-                  sx={{ mb: 3, fontFamily: 'Playfair Display' }}
-                >
-                  Breathing Exercise
-                </Typography>
-                <Box
-                  sx={{
-                    position: 'relative',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    mb: 3,
-                  }}
-                >
-                  <CircularProgress
-                    variant="determinate"
-                    value={(breathingTime / 60) * 100}
-                    size={200}
-                    thickness={4}
-                    sx={{ color: 'primary.main' }}
-                  />
-                  <Typography
-                    variant="h4"
-                    component="div"
-                    sx={{
-                      position: 'absolute',
-                      fontFamily: 'Playfair Display',
-                    }}
-                  >
-                    {breathingTime}s
-                  </Typography>
-                </Box>
-                <Box sx={{ display: 'flex', gap: 2 }}>
-                  <IconButton
-                    onClick={handleBreathingToggle}
-                    color="primary"
-                    size="large"
-                  >
-                    {isBreathingActive ? <PauseIcon /> : <PlayIcon />}
-                  </IconButton>
-                  <IconButton
-                    onClick={handleResetBreathing}
-                    color="primary"
-                    size="large"
-                  >
-                    <ResetIcon />
-                  </IconButton>
-                </Box>
-              </Paper>
+              <BreathingExercise />
             </MotionBox>
           </Grid>
 
