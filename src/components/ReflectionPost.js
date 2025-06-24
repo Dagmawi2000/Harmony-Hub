@@ -21,10 +21,13 @@ function ReflectionPost() {
 
   // Listen to posts for the selected community
   useEffect(() => {
-    if (selectedCommunity) {
-      const unsubscribe = listenToPosts(selectedCommunity.id);
-      return () => unsubscribe();
+    if (!selectedCommunity || !selectedCommunity.id) {
+      console.log('No community selected or missing id', selectedCommunity);
+      return;
     }
+    console.log('Listening to posts for community:', selectedCommunity.id);
+    const unsubscribe = listenToPosts(selectedCommunity.id);
+    return () => unsubscribe();
   }, [selectedCommunity]);
 
   const fetchUserCommunities = async () => {
@@ -37,6 +40,10 @@ function ReflectionPost() {
       
       if (userCommunities.length > 0) {
         setSelectedCommunity(userCommunities[0]);
+        console.log('Selected community:', userCommunities[0]);
+      } else {
+        setSelectedCommunity(null);
+        console.log('No communities found for user');
       }
     } catch (error) {
       console.error('Error fetching user communities:', error);
@@ -49,13 +56,13 @@ function ReflectionPost() {
       where('communityId', '==', communityId),
       orderBy('timestamp', 'desc')
     );
-
     return onSnapshot(postsQuery, (snapshot) => {
       const postsData = snapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data()
       }));
       setPosts(postsData);
+      console.log('Fetched posts:', postsData);
     });
   };
 
@@ -76,6 +83,7 @@ function ReflectionPost() {
         timestamp: serverTimestamp(),
       });
       setReflection('');
+      console.log('Posted reflection to community:', selectedCommunity.id);
     } catch (error) {
       console.error('Error posting reflection:', error);
     } finally {
