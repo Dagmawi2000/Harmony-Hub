@@ -9,8 +9,6 @@ import {
   CardContent,
   CardActionArea,
   IconButton,
-  AppBar,
-  Toolbar,
 } from '@mui/material';
 import {
   SelfImprovement as MindfulnessIcon,
@@ -70,22 +68,6 @@ function Dashboard() {
 
   return (
     <Box sx={{ minHeight: '100vh', bgcolor: 'background.default' }}>
-      {/* Navigation Bar */}
-      <AppBar position="static" color="transparent" elevation={0}>
-        <Toolbar>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, fontFamily: 'Playfair Display' }}
-          >
-            Harmony Hub
-          </Typography>
-          <IconButton color="inherit" onClick={handleLogout}>
-            <LogoutIcon />
-          </IconButton>
-        </Toolbar>
-      </AppBar>
-
       <Container maxWidth="lg" sx={{ py: 4 }}>
         {/* Welcome Message */}
         <Box sx={{ mb: 6, textAlign: 'center' }}>
