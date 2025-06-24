@@ -4,6 +4,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import Footer from './components/Footer';
+import Header from './components/Header';
 
 // Pages
 import Landing from './pages/Landing';
@@ -77,6 +78,7 @@ function App() {
       <CssBaseline />
       <AuthProvider>
         <Router>
+          <Header />
           <Routes>
             {/* Public Routes */}
             <Route path="/" element={<Landing />} />
